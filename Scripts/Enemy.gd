@@ -14,10 +14,11 @@ var velocity = Vector2()
 var direction = 1 #here 1 represents right for convenience
 var is_dead = false
 var lives = 2
-var damage = 0
+var damage = 1
 
 var player_in_range = false
 var can_shoot = true
+var can_jump = false
 
 func _ready():
 	pass # Replace with function body.
@@ -26,18 +27,10 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, UP)
 	velocity.y += GRAVITY * delta
 	
-	if !player_in_range:
-		#walk_to_sides()
-		#velocity = move_and_slide(velocity, UP)
-	
-		if is_on_wall():
-			direction = direction * -1 #inverts the direction when it collides with a wall
-			$LedgeRayCast.position.x *= -1
-		
-	
-	else:
-		follow_player()
-		shoot()
+	follow_player()
+	shoot()
+	jump_with_player()
+	detect_wall()
 		
 
 func follow_player():
@@ -49,11 +42,13 @@ func follow_player():
 		velocity.x = SPEED
 		$BulletSpawn.position.x = 1
 			
-	if Player.position.y < position.y - 24:
-		if is_on_floor():
+func jump_with_player():
+	if player_in_range:
+		if Player.position.y < position.y - 24:
 			jump()
 	
 func jump():
+	if is_on_floor():
 		velocity.y -= JUMP_SPEED
 	
 func shoot():
@@ -79,6 +74,17 @@ func walk_to_sides():
 	if $LedgeRayCast.is_colliding() == false:
 		direction = direction * -1
 		$LedgeRayCast.position.x *= -1
+
+		
+		
+func detect_wall():
+	if $WallRayCastRight.is_colliding() == true:
+		jump()
+		#$WallRayCast.position.x *= -1
+	if $WallRayCastLeft.is_colliding() == true:
+		jump()
+		#$WallRayCast.position.x *= -1
+		
 	
 func hurt(damage):
 	velocity = Vector2(0,0)
@@ -99,10 +105,8 @@ func _on_ShootDelay_timeout():
 func _on_Detector_body_entered(body):
 	if body.name == "Player":
 		player_in_range = true
-		print("entered")
 		
 func _on_Detector_body_exited(body):
 	if body.name == "Player":
 		player_in_range = false
-		print("exited")
 		

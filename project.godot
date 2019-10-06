@@ -17,6 +17,10 @@ _global_script_class_icons={
 
 run/main_scene="res://Scenes/Level.tscn"
 
+[autoload]
+
+GLOBAL="*res://Scripts/GLOBAL.gd"
+
 [input]
 
 ui_left={
