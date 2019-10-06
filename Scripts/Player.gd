@@ -81,8 +81,8 @@ func end_game():
 	get_tree().change_scene("res://Scenes/Level.tscn")
 	
 func hurt(damage):
-	motion.y = 0
-	motion.y -= JUMP_SPEED * 0.6  # multiplying just so it won't jump so high 
+	#motion.y = 0
+	#motion.y -= JUMP_SPEED * 0.6  # multiplying just so it won't jump so high 
 	lives -= damage
 	if lives <= 0:
 		end_game()
