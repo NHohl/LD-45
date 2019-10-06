@@ -8,7 +8,7 @@ const WORLD_LIMIT = 4000
 
 const BULLET = preload("res://Scenes/Bullet.tscn")
 
-var lives = 3
+export var lives = 99
 var can_shoot = true
 
 var damage = 2

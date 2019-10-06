@@ -1,8 +1,9 @@
 extends Node
 
 
-var PLAYER_MONEY = 0
-
+export var PLAYER_MONEY = 0
+export var PLAYER_LEVEL = 0
+export var PLAYER_LIFE = 1
 
 
 var ENEMY_MONEY = 0
