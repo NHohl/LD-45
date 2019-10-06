@@ -13,7 +13,7 @@ var can_shoot = true
 
 var damage = 2
 
-signal animate
+#signal animate
 
 var motion = Vector2(0,0)
 var on_floor #used in the animation signal
