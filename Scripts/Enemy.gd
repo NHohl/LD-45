@@ -33,12 +33,13 @@ func _physics_process(delta):
 	
 	
 	
-func hurt():
+func hurt(damage):
 	velocity = Vector2(0,0)
 	velocity.y -= JUMP_SPEED * 0.6  # multiplying just so it won't jump so high 
-	lives -= 1
+	lives -= damage
 	if lives <= 0:
 		queue_free()
 		
 #TODO Fazer animação de morte e delay dos corpos antes de sumir (se der tempo)
+# Vídeo 9 da série UmaiPixel
 	

@@ -11,6 +11,8 @@ const BULLET = preload("res://Scenes/Bullet.tscn")
 var lives = 3
 var can_shoot = true
 
+var damage = 2
+
 signal animate
 
 var motion = Vector2(0,0)
@@ -64,6 +66,7 @@ func apply_gravity(delta):
 func shoot():
 	if can_shoot == true && Input.is_action_just_pressed("shoot"):
 		var bullet = BULLET.instance()
+		bullet.damage = damage
 		if sign($BulletSpawn.position.x) == 1:
 			bullet.set_bullet_direction(1)
 		else:
@@ -75,13 +78,13 @@ func animate():
 	emit_signal("animate", motion, on_floor)
 
 func end_game():
-	get_tree().change_scene("res://Scenes/Levels/GameOver.tscn")
+	get_tree().change_scene("res://Scenes/Level.tscn")
 	
-func hurt():
+func hurt(damage):
 	motion.y = 0
 	motion.y -= JUMP_SPEED * 0.6  # multiplying just so it won't jump so high 
-	lives -= 1
-	if lives < 0:
+	lives -= damage
+	if lives <= 0:
 		end_game()
 		
 	
