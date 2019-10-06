@@ -23,3 +23,9 @@ shape = SubResource( 1 )
 position = Vector2( 3.10062, -0.329853 )
 enabled = true
 cast_to = Vector2( 0, 13 )
+
+[node name="BulletSpawn" type="Position2D" parent="."]
+position = Vector2( 7, 4 )
+
+[node name="ShootDelay" type="Timer" parent="."]
+[connection signal="timeout" from="ShootDelay" to="." method="_on_ShootDelay_timeout"]

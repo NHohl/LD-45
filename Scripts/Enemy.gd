@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 onready var Player = get_parent().get_node("Player")
 
+const BULLET = preload("res://Scenes/EnemyBullet.tscn")
+
 const GRAVITY = 1000
 const SPEED = 50
 const JUMP_SPEED = 270
@@ -12,8 +14,10 @@ var velocity = Vector2()
 var direction = 1 #here 1 represents right for convenience
 var is_dead = false
 var lives = 2
+var damage = 1
 
 var player_in_range = true
+var can_shoot = true
 
 func _ready():
 	pass # Replace with function body.
@@ -40,6 +44,7 @@ func _physics_process(delta):
 		follow_player()
 		velocity = move_and_slide(velocity, FLOOR)
 		velocity.y += GRAVITY * delta
+		shoot()
 		if is_on_wall() && is_on_floor():
 			jump()
 		
@@ -53,7 +58,19 @@ func follow_player():
 func jump():
 		velocity.y -= JUMP_SPEED
 	
-	
+func shoot():
+	if can_shoot == true && player_in_range:
+		var bullet = BULLET.instance()
+		bullet.damage = damage
+		if sign($BulletSpawn.position.x) == 1:
+			bullet.set_bullet_direction(1)
+		else:
+			bullet.set_bullet_direction(-1)
+		get_parent().add_child(bullet)
+		bullet.position = $BulletSpawn.global_position
+		
+		can_shoot = false
+		$ShootDelay.start()
 	
 	
 func hurt(damage):
@@ -66,3 +83,7 @@ func hurt(damage):
 #TODO Fazer animação de morte e delay dos corpos antes de sumir (se der tempo)
 # Vídeo 9 da série UmaiPixel
 	
+
+
+func _on_ShootDelay_timeout():
+	can_shoot = true

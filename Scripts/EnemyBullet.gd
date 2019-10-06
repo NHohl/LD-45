@@ -3,6 +3,7 @@ extends Area2D
 const SPEED = 140
 var velocity = Vector2()
 var direction = 1
+var damage = 1
 
 func _ready():
 	pass
@@ -20,6 +21,6 @@ func _on_VisibilityNotifier2D_screen_exited():
 
 func _on_Bullet_body_entered(body):
 	if "Player" in body.name:
-		body.hurt()
+		body.hurt(damage)
 	if !"Enemy" in body.name:
 		queue_free()
