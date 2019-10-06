@@ -63,8 +63,11 @@ func apply_gravity(delta):
 
 func shoot():
 	if can_shoot == true && Input.is_action_just_pressed("shoot"):
-		print("shoot")
 		var bullet = BULLET.instance()
+		if sign($BulletSpawn.position.x) == 1:
+			bullet.set_bullet_direction(1)
+		else:
+			bullet.set_bullet_direction(-1)
 		get_parent().add_child(bullet)
 		bullet.position = $BulletSpawn.global_position
 

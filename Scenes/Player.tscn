@@ -17,7 +17,7 @@ texture = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="BulletSpawn" type="Position2D" parent="."]
-position = Vector2( 6, 0 )
+position = Vector2( 5, 0 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
