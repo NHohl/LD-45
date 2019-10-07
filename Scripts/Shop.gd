@@ -3,6 +3,8 @@ extends Node2D
 var can_buy_upg = false
 var can_buy_life = false
 
+signal player_level_up
+
 func _ready():
 	pass
 
@@ -27,10 +29,21 @@ func _on_Life_body_exited(body):
 
 func _process(delta):
 	if can_buy_upg && Input.is_action_just_pressed("beg"):
-		GLOBAL.PLAYER_LEVEL += 1
-		print("upg bought")
+		buy_upg()
 		
 	if can_buy_life && Input.is_action_just_pressed("beg"):
-		GLOBAL.PLAYER_LIFE += 1	
-		print("life bought")
+		if GLOBAL.PLAYER_LIFE < GLOBAL.MAX_LIFE:
+			GLOBAL.PLAYER_MONEY -= GLOBAL.LIFE_COST
+			GLOBAL.PLAYER_LIFE += 1	
+			print("life bought")
+			print("player n of lifes = ", GLOBAL.PLAYER_LIFE)
 			
+func buy_upg():
+	if GLOBAL.PLAYER_MONEY >= GLOBAL.LEVEL_COST && GLOBAL.PLAYER_LEVEL < GLOBAL.MAX_LEVEL:
+		GLOBAL.PLAYER_MONEY -= GLOBAL.LEVEL_COST
+		GLOBAL.PLAYER_LEVEL += 1
+		GLOBAL.MAX_LIFE += 2
+		GLOBAL.PLAYER_LIFE = GLOBAL.MAX_LIFE
+		GLOBAL.PLAYER_DAMAGE += 1
+		emit_signal("player_level_up")
+		

@@ -18,10 +18,12 @@ var damage = 1
 
 var player_in_range = false
 var can_shoot = true
-var can_jump = false
+var can_jump = true
+
+var current_texture
 
 func _ready():
-	pass # Replace with function body.
+	$JumpDelay.start()
 
 func _physics_process(delta):
 	velocity = move_and_slide(velocity, UP)
@@ -31,7 +33,6 @@ func _physics_process(delta):
 	shoot()
 	jump_with_player()
 	detect_wall()
-		
 
 func follow_player():
 	if Player.position.x < position.x:
@@ -48,8 +49,10 @@ func jump_with_player():
 			jump()
 	
 func jump():
-	if is_on_floor():
+	if is_on_floor() && can_jump:
 		velocity.y -= JUMP_SPEED
+		#$JumpDelay.start()
+		can_jump = false
 	
 func shoot():
 	if can_shoot == true && player_in_range:
@@ -95,7 +98,16 @@ func hurt(damage):
 		
 #TODO Fazer animação de morte e delay dos corpos antes de sumir (se der tempo)
 # Vídeo 9 da série UmaiPixel
-	
+
+#func pick_current_sprite():
+#	if GLOBAL.PLAYER_LEVEL == 0:
+#		current_texture = enemy0
+#	if GLOBAL.PLAYER_LEVEL == 1:
+#		current_texture = enemy1
+#	if GLOBAL.PLAYER_LEVEL == 2:
+#		current_texture = enemy2
+#	if GLOBAL.PLAYER_LEVEL == 3:
+#		current_texture = enemy3
 
 
 func _on_ShootDelay_timeout():
@@ -110,3 +122,7 @@ func _on_Detector_body_exited(body):
 	if body.name == "Player":
 		player_in_range = false
 		
+
+
+func _on_JumpDelay_timeout():
+	can_jump = true

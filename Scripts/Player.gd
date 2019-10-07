@@ -18,10 +18,14 @@ var damage = 2
 var motion = Vector2(0,0)
 var on_floor #used in the animation signal
 
+func _ready():
+	pass
+
 func _process(delta): #controls motion coming from input
 	move()
 	jump()
 	manage_restart()
+	godmode()
 
 func _physics_process(delta): #controls motion coming from the engine
 	apply_gravity(delta)
@@ -76,18 +80,39 @@ func shoot():
 
 func animate():
 	emit_signal("animate", motion, on_floor)
+	
+func godmode():
+	if Input.is_action_just_pressed("ui_accept"):
+		print("God Mode ON")
+		GLOBAL.PLAYER_LIFE = 99
 
 func end_game():
+	reset_stats()
 	get_tree().change_scene("res://Scenes/Level.tscn")
 	
 func hurt(damage):
 	#motion.y = 0
 	#motion.y -= JUMP_SPEED * 0.6  # multiplying just so it won't jump so high 
-	lives -= damage
-	if lives <= 0:
+	GLOBAL.PLAYER_LIFE -= damage
+	print("player n of lifes = ", GLOBAL.PLAYER_LIFE)
+	if GLOBAL.PLAYER_LIFE <= 0:
 		end_game()
+		reset_stats()
 		
 	
 func manage_restart():
 	if Input.is_action_just_pressed("Restart"):
 		get_tree().reload_current_scene() 
+
+func reset_stats():
+	GLOBAL.PLAYER_DAMAGE = 0
+	GLOBAL.PLAYER_LEVEL = 0
+	GLOBAL.PLAYER_LIFE = 1
+	GLOBAL.PLAYER_MONEY = 0
+	GLOBAL.MAX_LIFE = 1
+	GLOBAL.ENEMY_MONEY = 0
+	GLOBAL.ENEMY_DELAY = 6
+
+func _on_Shop_player_level_up():
+	$PlayerManager.pick_current_sprite()
+	$PlayerManager.change_sprite()
