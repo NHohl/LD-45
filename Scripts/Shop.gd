@@ -36,6 +36,7 @@ func _process(delta):
 		if GLOBAL.PLAYER_LIFE < GLOBAL.MAX_LIFE:
 			GLOBAL.PLAYER_MONEY -= GLOBAL.LIFE_COST
 			GLOBAL.PLAYER_LIFE += 1	
+			SoundManager.get_node("Buy").play()
 			print("life bought")
 			print("player n of lifes = ", GLOBAL.PLAYER_LIFE)
 			
@@ -49,6 +50,7 @@ func buy_upg():
 		GLOBAL.PLAYER_LIFE = GLOBAL.MAX_LIFE
 		GLOBAL.PLAYER_DAMAGE += 1
 		emit_signal("player_level_up")
+		SoundManager.get_node("Buy").play()
 		$Upgrade/LevelCost.set_text(str(GLOBAL.LEVEL_COST))
 		$Life/LifeCost.set_text(str(GLOBAL.LIFE_COST))
 		

@@ -20,7 +20,7 @@ run/main_scene="res://Scenes/Level.tscn"
 [autoload]
 
 GLOBAL="*res://Scripts/GLOBAL.gd"
-SoundManager="*res://Scripts/SoundManager.gd"
+SoundManager="*res://Scenes/SoundManager.tscn"
 
 [importer_defaults]
 

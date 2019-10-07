@@ -15,6 +15,7 @@ func _on_Gentleman_body_entered(body):
 	if "Player" in body.name:
 		GLOBAL.PLAYER_MONEY += money_content
 		money_content = 0
+		SoundManager.get_node("Money").play()
 	elif "Enemy" in body.name:
 		GLOBAL.ENEMY_MONEY += money_content
 #		print("enemy money is",GLOBAL.ENEMY_MONEY)

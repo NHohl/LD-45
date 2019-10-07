@@ -1,3 +1,4 @@
 extends Node
 
-export () var jump
+func _ready():
+	$Music.play()

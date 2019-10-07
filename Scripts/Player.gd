@@ -52,6 +52,7 @@ func move():
 func jump():
 	if Input.is_action_just_pressed("ui_up") and is_on_floor():
 		motion.y -= JUMP_SPEED
+		SoundManager.get_node("Jump").play()
 
 func apply_gravity(delta):
 #	if not is_on_floor():
@@ -70,6 +71,7 @@ func apply_gravity(delta):
 func shoot():
 	if can_shoot && GLOBAL.PLAYER_LEVEL > 0:
 		if Input.is_action_just_pressed("shoot"):
+			SoundManager.get_node("Shoot").play()
 			var bullet = BULLET.instance()
 			bullet.damage = GLOBAL.PLAYER_DAMAGE
 			if sign($BulletSpawn.position.x) == 1:
@@ -98,6 +100,7 @@ func hurt(damage):
 	#motion.y -= JUMP_SPEED * 0.6  # multiplying just so it won't jump so high 
 	GLOBAL.PLAYER_LIFE -= damage
 	emit_signal("update_hud")
+	SoundManager.get_node("Hurt").play()
 #	print("player n of lifes = ", GLOBAL.PLAYER_LIFE)
 	if GLOBAL.PLAYER_LIFE <= 0:
 		reset_stats()
