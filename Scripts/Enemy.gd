@@ -6,7 +6,7 @@ onready var enemy0
 const BULLET = preload("res://Scenes/EnemyBullet.tscn")
 
 const GRAVITY = 1000
-const SPEED = 50
+const SPEED = 30
 const JUMP_SPEED = 270
 const UP = Vector2(0, -1)
 
@@ -15,16 +15,20 @@ var velocity = Vector2()
 var direction = 1 #here 1 represents right for convenience
 var is_dead = false
 var lives = 2
-var damage = 1
+var damage
+var shoot_delay
 
 var player_in_range = false
-var can_shoot = true
+var can_shoot = false
 var can_jump = true
 
 var current_texture
 
 func _ready():
+	$JumpDelay.wait_time = 1
+	$ShootDelay.wait_time = shoot_delay
 	$JumpDelay.start()
+	$ShootDelay.start()
 	pick_current_sprite()
 
 func _physics_process(delta):
@@ -59,7 +63,7 @@ func jump():
 func shoot():
 	if can_shoot == true && player_in_range:
 		var bullet = BULLET.instance()
-		bullet.damage = GLOBAL.ENEMY_DAMAGE
+		bullet.damage = damage
 		if sign($BulletSpawn.position.x) == 1:
 			bullet.set_bullet_direction(1)
 		else:

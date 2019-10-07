@@ -13,6 +13,7 @@ var can_shoot = true
 
 var damage = 2
 
+signal update_hud
 #signal animate
 
 var motion = Vector2(0,0)
@@ -95,10 +96,11 @@ func hurt(damage):
 	#motion.y = 0
 	#motion.y -= JUMP_SPEED * 0.6  # multiplying just so it won't jump so high 
 	GLOBAL.PLAYER_LIFE -= damage
+	emit_signal("update_hud")
 #	print("player n of lifes = ", GLOBAL.PLAYER_LIFE)
 	if GLOBAL.PLAYER_LIFE <= 0:
-		end_game()
 		reset_stats()
+		end_game()
 		
 	
 func manage_restart():
@@ -110,9 +112,13 @@ func reset_stats():
 	GLOBAL.PLAYER_LEVEL = 0
 	GLOBAL.PLAYER_LIFE = 1
 	GLOBAL.PLAYER_MONEY = 0
+	GLOBAL.LEVEL_COST = 1
 	GLOBAL.MAX_LIFE = 1
 	GLOBAL.ENEMY_MONEY = 0
-	GLOBAL.ENEMY_DELAY = 6
+	GLOBAL.ENEMY_DELAY = 10
+	GLOBAL.ENEMY_DAMAGE = 1
+	GLOBAL.ENEMY_LEVEL = 0
+	GLOBAL.ENEMY_LEVEL_COST = 3
 
 func _on_Shop_player_level_up():
 	$PlayerManager.pick_current_sprite()

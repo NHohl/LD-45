@@ -22,5 +22,6 @@ func _on_VisibilityNotifier2D_screen_exited():
 func _on_Bullet_body_entered(body):
 	if "Player" in body.name:
 		body.hurt(damage)
+		print("enemy bul: damage = ", damage)
 	if !"Enemy" in body.name:
 		queue_free()

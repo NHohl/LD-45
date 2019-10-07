@@ -13,10 +13,14 @@ onready var enemy1 = load("res://Sprites/square_blue.png")
 onready var enemy2 = load("res://Sprites/square_orange.png")
 onready var enemy3 = load("res://Sprites/square_red.png")
 
+signal update_hud
+
+
 func _ready():
-	spawn()
+	
 	$Timer.wait_time = GLOBAL.ENEMY_DELAY
 	$Timer.start()
+	spawn()
 	
 func _process(delta):
 	enemy_level_up()
@@ -27,6 +31,7 @@ func spawn():
 	enemy.get_node("Sprite").set_texture(texture)
 	enemy.damage = GLOBAL.ENEMY_DAMAGE
 	enemy.lives = GLOBAL.ENEMY_MAX_LIFE
+	enemy.shoot_delay = GLOBAL.ENEMY_SHOOT_DELAY
 	pick_current_sprite()
 	get_parent().call_deferred("add_child", enemy)
 	
@@ -37,19 +42,21 @@ func _on_Timer_timeout():
 	spawn()
 	
 func enemy_level_up():
-	if GLOBAL.ENEMY_MONEY >= GLOBAL.ENEMY_LEVEL_COST:
-		if GLOBAL.ENEMY_LEVEL < GLOBAL.ENEMY_MAX_LEVEL:
-			GLOBAL.ENEMY_MONEY -= GLOBAL.ENEMY_LEVEL_COST
-			GLOBAL.ENEMY_LEVEL_COST += 6
-			GLOBAL.ENEMY_LEVEL += 1
-			GLOBAL.ENEMY_DAMAGE += 1
-			GLOBAL.ENEMY_MAX_LIFE += 1
-			GLOBAL.ENEMY_DELAY -= 2
-#			GLOBAL.ENEMY_LEVEL_COST += 1 #default is 20
-#			print("enemy level up called")
-#			print("enemy level is ", GLOBAL.ENEMY_LEVEL)
-#			print("enemy damage = ", GLOBAL.ENEMY_DAMAGE)
-#			print("enemy money = ", GLOBAL.ENEMY_MONEY)
+	if name == "EnemySpawner":
+		if GLOBAL.ENEMY_MONEY >= GLOBAL.ENEMY_LEVEL_COST:
+			if GLOBAL.ENEMY_LEVEL < GLOBAL.ENEMY_MAX_LEVEL:
+				GLOBAL.ENEMY_MONEY -= GLOBAL.ENEMY_LEVEL_COST
+				GLOBAL.ENEMY_LEVEL += 1
+				GLOBAL.ENEMY_DAMAGE += 1
+				GLOBAL.ENEMY_MAX_LIFE += 1
+				GLOBAL.ENEMY_DELAY -= 2
+				GLOBAL.ENEMY_LEVEL_COST += 6
+				GLOBAL.ENEMY_SHOOT_DELAY -= 0.5
+				emit_signal("update_hud")
+#				print("enemy level up called")
+#				print("enemy level is ", GLOBAL.ENEMY_LEVEL)
+#				print("enemy damage = ", GLOBAL.ENEMY_DAMAGE)
+#				print("enemy money = ", GLOBAL.ENEMY_MONEY)
 
 func pick_current_sprite():
 	if GLOBAL.PLAYER_LEVEL == 0:
