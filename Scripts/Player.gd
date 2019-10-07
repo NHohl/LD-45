@@ -8,7 +8,6 @@ const WORLD_LIMIT = 4000
 
 const BULLET = preload("res://Scenes/Bullet.tscn")
 
-export var lives = 99
 var can_shoot = true
 
 var damage = 2
@@ -26,7 +25,7 @@ func _process(delta): #controls motion coming from input
 	move()
 	jump()
 	manage_restart()
-	godmode()
+#	godmode()
 
 func _physics_process(delta): #controls motion coming from the engine
 	apply_gravity(delta)
@@ -87,6 +86,8 @@ func godmode():
 	if Input.is_action_just_pressed("ui_accept"):
 		print("God Mode ON")
 		GLOBAL.PLAYER_LIFE = 9999
+		GLOBAL.PLAYER_LEVEL += 1
+		print(GLOBAL.PLAYER_LEVEL)
 
 func end_game():
 	reset_stats()

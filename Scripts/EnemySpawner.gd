@@ -8,16 +8,15 @@ export (Texture) var texture
 
 var current_texture
 
-onready var enemy0 = load("res://Sprites/inimigo1.png")
-onready var enemy1 = load("res://Sprites/square_blue.png")
-onready var enemy2 = load("res://Sprites/square_orange.png")
-onready var enemy3 = load("res://Sprites/square_red.png")
+onready var enemy0 = load("res://Sprites/EnemySprites/enemy0.png")
+onready var enemy1 = load("res://Sprites/EnemySprites/enemy1.png")
+onready var enemy2 = load("res://Sprites/EnemySprites/enemy2.png")
+onready var enemy3 = load("res://Sprites/EnemySprites/enemy3.png")
 
 signal update_hud
 
 
 func _ready():
-	
 	$Timer.wait_time = GLOBAL.ENEMY_DELAY
 	$Timer.start()
 	spawn()
@@ -32,7 +31,6 @@ func spawn():
 	enemy.damage = GLOBAL.ENEMY_DAMAGE
 	enemy.lives = GLOBAL.ENEMY_MAX_LIFE
 	enemy.shoot_delay = GLOBAL.ENEMY_SHOOT_DELAY
-	pick_current_sprite()
 	get_parent().call_deferred("add_child", enemy)
 	
 
@@ -58,17 +56,17 @@ func enemy_level_up():
 #				print("enemy damage = ", GLOBAL.ENEMY_DAMAGE)
 #				print("enemy money = ", GLOBAL.ENEMY_MONEY)
 
-func pick_current_sprite():
-	if GLOBAL.PLAYER_LEVEL == 0:
-		current_texture = enemy0
-	if GLOBAL.PLAYER_LEVEL == 1:
-		current_texture = enemy1
-	if GLOBAL.PLAYER_LEVEL == 2:
-		current_texture = enemy2
-	if GLOBAL.PLAYER_LEVEL == 3:
-		current_texture = enemy3
+#func pick_current_sprite():
+#	if GLOBAL.PLAYER_LEVEL == 0:
+#		current_texture = enemy0
+#	if GLOBAL.PLAYER_LEVEL == 1:
+#		current_texture = enemy1
+#	if GLOBAL.PLAYER_LEVEL == 2:
+#		current_texture = enemy2
+#	if GLOBAL.PLAYER_LEVEL == 3:
+#		current_texture = enemy3
 
-	
-func change_sprite():
-	get_parent().get_node("Sprite").set_texture(current_texture)
-#	print(" ENMY SP: tried to change enemy sprite")
+#
+#func change_sprite():
+#	get_parent().get_node("Sprite").set_texture(current_texture)
+##	print(" ENMY SP: tried to change enemy sprite")

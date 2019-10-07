@@ -6,7 +6,8 @@ var can_buy_life = false
 signal player_level_up
 
 func _ready():
-	pass
+	$Upgrade/LevelCost.set_text(str(GLOBAL.LEVEL_COST))
+	$Life/LifeCost.set_text(str(GLOBAL.LIFE_COST))
 
 
 func _on_Upgrade_body_entered(body):
@@ -42,10 +43,15 @@ func buy_upg():
 	if GLOBAL.PLAYER_MONEY >= GLOBAL.LEVEL_COST && GLOBAL.PLAYER_LEVEL < GLOBAL.MAX_LEVEL:
 		GLOBAL.PLAYER_MONEY -= GLOBAL.LEVEL_COST
 		GLOBAL.PLAYER_LEVEL += 1
+		GLOBAL.LEVEL_COST += 5
+		GLOBAL.LIFE_COST += 1
 		GLOBAL.MAX_LIFE += 2
 		GLOBAL.PLAYER_LIFE = GLOBAL.MAX_LIFE
 		GLOBAL.PLAYER_DAMAGE += 1
 		emit_signal("player_level_up")
+		$Upgrade/LevelCost.set_text(str(GLOBAL.LEVEL_COST))
+		$Life/LifeCost.set_text(str(GLOBAL.LIFE_COST))
+		
 		print("SHOP: player level up")
-		print("SHOP: player level is", GLOBAL.PLAYER_LEVEL)
+		print("SHOP: player level is ", GLOBAL.PLAYER_LEVEL)
 		

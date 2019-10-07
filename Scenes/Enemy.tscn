@@ -21,7 +21,6 @@ shape = SubResource( 1 )
 
 [node name="LedgeRayCast" type="RayCast2D" parent="."]
 position = Vector2( 3.10062, -0.329853 )
-enabled = true
 cast_to = Vector2( 0, 13 )
 
 [node name="WallRayCastRight" type="RayCast2D" parent="."]

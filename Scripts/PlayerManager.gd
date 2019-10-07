@@ -5,10 +5,10 @@ extends Node2D
 #export (Texture) var player2
 #export (Texture) var player3
 
-onready var player0 = load("res://Sprites/mendigo1.png")
-onready var player1 = load("res://Sprites/square_blue.png")
-onready var player2 = load("res://Sprites/square_orange.png")
-onready var player3 = load("res://Sprites/square_red.png")
+onready var player0 = load("res://Sprites/PlayerSprites/player0.png")
+onready var player1 = load("res://Sprites/PlayerSprites/player1.png")
+onready var player2 = load("res://Sprites/PlayerSprites/player2.png")
+onready var player3 = load("res://Sprites/PlayerSprites/player3.png")
 
 var current_texture = player0
 

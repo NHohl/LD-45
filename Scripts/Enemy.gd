@@ -107,16 +107,16 @@ func hurt(damage):
 
 func pick_current_sprite():
 	if GLOBAL.ENEMY_LEVEL == 0:
-		current_texture = load("res://Sprites/square_red.png")
+		current_texture = load("res://Sprites/EnemySprites/enemy0.png")
 		$Sprite.set_texture(current_texture)
 	if GLOBAL.ENEMY_LEVEL == 1:
-		current_texture = load("res://Sprites/square_orange.png")
+		current_texture = load("res://Sprites/EnemySprites/enemy1.png")
 		$Sprite.set_texture(current_texture)
 	if GLOBAL.ENEMY_LEVEL == 2:
-		current_texture = load("res://Sprites/square_blue.png")
+		current_texture = load("res://Sprites/EnemySprites/enemy2.png")
 		$Sprite.set_texture(current_texture)
 	if GLOBAL.ENEMY_LEVEL == 3:
-		current_texture = load("res://Sprites/icon.png")
+		current_texture = load("res://Sprites/EnemySprites/enemy3.png")
 		$Sprite.set_texture(current_texture)
 	
 

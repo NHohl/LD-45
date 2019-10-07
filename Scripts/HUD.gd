@@ -26,3 +26,7 @@ func update_money():
 func _on_EnemySpawner_update_hud():
 	update_stats()
 	
+
+
+func _on_Shop_player_level_up():
+	update_stats()

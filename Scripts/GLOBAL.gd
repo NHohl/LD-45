@@ -1,6 +1,5 @@
 extends Node
 
-signal player_level_up
 
 export var PLAYER_MONEY = 0
 export var PLAYER_LIFE = 2
