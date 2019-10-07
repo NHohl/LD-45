@@ -68,15 +68,16 @@ func apply_gravity(delta):
 		motion.y += GRAVITY * delta #constantly falling so it's always on floor and is able to jump
 
 func shoot():
-	if can_shoot == true && Input.is_action_just_pressed("shoot"):
-		var bullet = BULLET.instance()
-		bullet.damage = damage
-		if sign($BulletSpawn.position.x) == 1:
-			bullet.set_bullet_direction(1)
-		else:
-			bullet.set_bullet_direction(-1)
-		get_parent().add_child(bullet)
-		bullet.position = $BulletSpawn.global_position
+	if can_shoot && GLOBAL.PLAYER_LEVEL > 0:
+		if Input.is_action_just_pressed("shoot"):
+			var bullet = BULLET.instance()
+			bullet.damage = GLOBAL.PLAYER_DAMAGE
+			if sign($BulletSpawn.position.x) == 1:
+				bullet.set_bullet_direction(1)
+			else:
+				bullet.set_bullet_direction(-1)
+			get_parent().add_child(bullet)
+			bullet.position = $BulletSpawn.global_position
 
 func animate():
 	emit_signal("animate", motion, on_floor)
@@ -84,7 +85,7 @@ func animate():
 func godmode():
 	if Input.is_action_just_pressed("ui_accept"):
 		print("God Mode ON")
-		GLOBAL.PLAYER_LIFE = 99
+		GLOBAL.PLAYER_LIFE = 9999
 
 func end_game():
 	reset_stats()
@@ -94,7 +95,7 @@ func hurt(damage):
 	#motion.y = 0
 	#motion.y -= JUMP_SPEED * 0.6  # multiplying just so it won't jump so high 
 	GLOBAL.PLAYER_LIFE -= damage
-	print("player n of lifes = ", GLOBAL.PLAYER_LIFE)
+#	print("player n of lifes = ", GLOBAL.PLAYER_LIFE)
 	if GLOBAL.PLAYER_LIFE <= 0:
 		end_game()
 		reset_stats()

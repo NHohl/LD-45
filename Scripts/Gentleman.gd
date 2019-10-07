@@ -17,7 +17,7 @@ func _on_Gentleman_body_entered(body):
 		money_content = 0
 	elif "Enemy" in body.name:
 		GLOBAL.ENEMY_MONEY += money_content
-		print("enemy money is",GLOBAL.ENEMY_MONEY)
+#		print("enemy money is",GLOBAL.ENEMY_MONEY)
 		money_content = 0
 #	print("Player money = ", GLOBAL.PLAYER_MONEY)
 #	print("Enemy money = ", GLOBAL.ENEMY_MONEY)

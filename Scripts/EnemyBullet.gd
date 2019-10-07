@@ -3,7 +3,7 @@ extends Area2D
 const SPEED = 140
 var velocity = Vector2()
 var direction = 1
-var damage = 1
+var damage
 
 func _ready():
 	pass

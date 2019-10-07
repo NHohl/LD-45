@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 onready var Player = get_parent().get_node("Player")
+onready var enemy0
 
 const BULLET = preload("res://Scenes/EnemyBullet.tscn")
 
@@ -24,6 +25,7 @@ var current_texture
 
 func _ready():
 	$JumpDelay.start()
+	pick_current_sprite()
 
 func _physics_process(delta):
 	velocity = move_and_slide(velocity, UP)
@@ -57,7 +59,7 @@ func jump():
 func shoot():
 	if can_shoot == true && player_in_range:
 		var bullet = BULLET.instance()
-		bullet.damage = damage
+		bullet.damage = GLOBAL.ENEMY_DAMAGE
 		if sign($BulletSpawn.position.x) == 1:
 			bullet.set_bullet_direction(1)
 		else:
@@ -99,15 +101,20 @@ func hurt(damage):
 #TODO Fazer animação de morte e delay dos corpos antes de sumir (se der tempo)
 # Vídeo 9 da série UmaiPixel
 
-#func pick_current_sprite():
-#	if GLOBAL.PLAYER_LEVEL == 0:
-#		current_texture = enemy0
-#	if GLOBAL.PLAYER_LEVEL == 1:
-#		current_texture = enemy1
-#	if GLOBAL.PLAYER_LEVEL == 2:
-#		current_texture = enemy2
-#	if GLOBAL.PLAYER_LEVEL == 3:
-#		current_texture = enemy3
+func pick_current_sprite():
+	if GLOBAL.ENEMY_LEVEL == 0:
+		current_texture = load("res://Sprites/square_red.png")
+		$Sprite.set_texture(current_texture)
+	if GLOBAL.ENEMY_LEVEL == 1:
+		current_texture = load("res://Sprites/square_orange.png")
+		$Sprite.set_texture(current_texture)
+	if GLOBAL.ENEMY_LEVEL == 2:
+		current_texture = load("res://Sprites/square_blue.png")
+		$Sprite.set_texture(current_texture)
+	if GLOBAL.ENEMY_LEVEL == 3:
+		current_texture = load("res://Sprites/icon.png")
+		$Sprite.set_texture(current_texture)
+	
 
 
 func _on_ShootDelay_timeout():
@@ -126,3 +133,4 @@ func _on_Detector_body_exited(body):
 
 func _on_JumpDelay_timeout():
 	can_jump = true
+	

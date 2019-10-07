@@ -30,4 +30,4 @@ func pick_current_sprite():
 	
 func change_sprite():
 	get_parent().get_node("Sprite").set_texture(current_texture)
-	print("tryed to change sprite")
+#	print("Play Mng: tried to change sprite")

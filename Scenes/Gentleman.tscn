@@ -22,9 +22,11 @@ wait_time = 3.0
 autostart = true
 
 [node name="MoneyContentLabel" type="Label" parent="."]
-margin_left = -6.80354
-margin_top = -25.5943
-margin_right = 7.19646
-margin_bottom = -11.5943
+margin_left = -6.4
+margin_top = -25.6
+margin_right = 7.6
+margin_bottom = -11.6
+align = 1
+valign = 1
 [connection signal="body_entered" from="." to="." method="_on_Gentleman_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

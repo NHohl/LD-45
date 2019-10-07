@@ -46,4 +46,6 @@ func buy_upg():
 		GLOBAL.PLAYER_LIFE = GLOBAL.MAX_LIFE
 		GLOBAL.PLAYER_DAMAGE += 1
 		emit_signal("player_level_up")
+		print("SHOP: player level up")
+		print("SHOP: player level is", GLOBAL.PLAYER_LEVEL)
 		

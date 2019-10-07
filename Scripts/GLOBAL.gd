@@ -14,12 +14,12 @@ export var MAX_LEVEL = 3
 export var PLAYER_DAMAGE = 0
 
 var ENEMY_MONEY = 0
-export var ENEMY_DELAY = 4
-export var ENEMY_DAMAGE = 1
+export var ENEMY_DELAY = 10
+export var ENEMY_DAMAGE = 0
 export var ENEMY_MAX_LIFE = 1
 export var ENEMY_LEVEL = 0
 export var ENEMY_MAX_LEVEL = 3
-export var ENEMY_LEVEL_COST = 1 #default is 20
+export var ENEMY_LEVEL_COST = 10 #default is 20
 
 #func _ready():
 #	connect("player_level_up", get_node("../Player"), "_on_GLOBAL_player_level_up")
